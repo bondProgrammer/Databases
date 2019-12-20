@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<!-- saved from url=(0095)https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/cc280362(v%3dsql.105) -->
+<html class="js hasSidebar hasPageActions hasBreadcrumb conceptual noTouch theme_night" lang="en-us" dir="ltr" data-authenticated="false" data-render="docs"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="./Query Processing Architecture _ Microsoft Docs_files/4a-45f526"><link rel="stylesheet" href="./Query Processing Architecture _ Microsoft Docs_files/override.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta property="og:title" content="Query Processing Architecture">
+	<meta property="og:image" content="https://docs.microsoft.com/_themes/docs.theme/master/en-us/_themes/images/microsoft-header.png">
+
+
+		<meta name="is_archived" content="true">
+<meta name="ROBOTS" content="NOINDEX,FOLLOW">
+<meta name="author" content="Archiveddocs">
+<meta name="ms.author" content="Archiveddocs">
+<meta name="breadcrumb_path" content="/previous-versions/sql/breadcrumb/toc.json">
+<meta name="current_version_url" content="/sql">
+<meta name="ms.topic" content="archived">
+<meta name="ms.prod" content="sql-server-2008-r2">
+<meta name="uhfHeaderId" content="MSDocsHeader-Archive">
+<meta name="is_retired" content="true">
+<meta name="ms:contentKeyID" content="21940631">
+<meta name="TOCTitle" content="Query Processing Architecture">
+<meta name="ms:assetid" content="ffc6f44d-67e6-497d-bebc-0ca9070c5e2a">
+<meta name="ms:mtpsurl" content="https://msdn.microsoft.com/en-us/library/Cc280362(v=SQL.105)">
+<meta name="ms.date" content="10/04/2012">
+<meta name="mtps_version" content="v=SQL.105">
+<meta name="search.ms_sitename" content="Docs">
+<meta name="search.ms_docsetname" content="sql-2008-R2-docs-archive">
+<meta name="locale" content="en-us">
+<meta name="site_name" content="Docs">
+<meta name="search.ms_product" content="MSDN">
+<meta name="depot_name" content="MSDN.sql-2008-R2-docs-archive">
+<meta name="updated_at" content="2018-04-13 03:36 AM">
+<meta name="gitcommit" content="https://docs-archive.visualstudio.com/DefaultCollection/docs-archive-project/_git/sql-2008-2008-r2-docs-archive-pr/commit/1abcb1d044fbe9fc9505b23cd53f71439bfa38b6?path=%2fsql-server-docs-archive%2fsql-server-2008-r2%2fcc280362(v%3dsql.105).md&amp;_a=contents">
+<meta name="original_content_git_url" content="https://docs-archive.visualstudio.com/DefaultCollection/docs-archive-project/_git/sql-2008-2008-r2-docs-archive-pr?path=%2fsql-server-docs-archive%2fsql-server-2008-r2%2fcc280362(v%3dsql.105).md&amp;version=GBlive&amp;_a=contents">
+<meta name="document_id" content="06f9c016-692d-0205-6dff-ff51632258e0">
+<meta name="document_version_independent_id" content="a124dd92-d38d-fdb5-a0a2-80911f0a663f">
+<meta name="page_type" content="conceptual">
+<meta name="toc_rel" content="cc280362(v=sql.105)/toc.json">
+<meta name="word_count" content="133">
+
+<link href="https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/cc280362(v%3dsql.105)" rel="canonical">
+	<title>Query Processing Architecture | Microsoft Docs</title>
+
+		<link rel="stylesheet" href="./Query Processing Architecture _ Microsoft Docs_files/74eb1240.site-ltr.css">
+
+	<link rel="stylesheet" href="./Query Processing Architecture _ Microsoft Docs_files/6ae69eb9.conceptual.css">
+
+
+	<script async="" src="./Query Processing Architecture _ Microsoft Docs_files/analytics.js.download"></script><script>
+	var msDocs = {
+		data:{
+			contentLocale: 'en-us',
+			contentDir: 'ltr',
+			userLocale: 'en-us',
+			userDir: 'ltr',
+			pageTemplate: 'Conceptual',
+			brand: '',
+			context: {
+
+			},
+			hasComments: false,
+			feedbackSystem: 'LiveFyre',
+			feedbackGitHubRepo: '',
+			feedbackProductUrl: '',
+			contentGitUrl: 'https://docs-archive.visualstudio.com/DefaultCollection/docs-archive-project/_git/sql-2008-2008-r2-docs-archive-pr?path=%2fsql-server-docs-archive%2fsql-server-2008-r2%2fcc280362(v%3dsql.105).md&version=GBlive&_a=contents',
+			
+			forceVersionPicker:false		},
+		functions:{},
+		settings:{
+			extendBreadcrumb: true,
+			enableUHFPPE: false
+		}
+	};
+	if (!('Promise' in window && 'resolve' in window.Promise && 'reject' in window.Promise && 'all' in window.Promise && 'race' in window.Promise)) {
+		document.write('<script src="/_themes/docs.theme/master/en-us/_themes/global/js/6ee34c01.bluebird.min.js"><\/script>');
+	}
+	if (typeof fetch !== 'function') {
+		document.write('<script src="/_themes/docs.theme/master/en-us/_themes/global/js/d9fc435c.fetch.min.js"><\/script>');
+	}
+	</script>
+	<script src="./Query Processing Architecture _ Microsoft Docs_files/jquery-2.2.4.min.js.download"></script>
+	<script src="./Query Processing Architecture _ Microsoft Docs_files/bd6dcf3c.global.min.js.download"></script><style></style><script src="./Query Processing Architecture _ Microsoft Docs_files/jsll-4.js.download" async="" defer=""></script>
+
+<script src="./Query Processing Architecture _ Microsoft Docs_files/e4-7aa0d7" defer=""></script></head>
+
+<body lang="en-us" dir="ltr">
+<div class="header-holder">
+		<div id="headerAreaHolder" data-bi-name="header">    <section id="headerArea" data-m="{&quot;cN&quot;:&quot;headerArea&quot;,&quot;cT&quot;:&quot;Area_coreuiArea&quot;,&quot;id&quot;:&quot;a1Body&quot;,&quot;sN&quot;:1,&quot;aN&quot;:&quot;Body&quot;}">
+            <div id="headerRegion" data-region-key="headerregion" data-m="{&quot;cN&quot;:&quot;headerRegion&quot;,&quot;cT&quot;:&quot;Region_coreui-region&quot;,&quot;id&quot;:&quot;r1a1&quot;,&quot;sN&quot;:1,&quot;aN&quot;:&quot;a1&quot;}">
+
+    <div id="headerUniversalHeader" data-m="{&quot;cN&quot;:&quot;headerUniversalHeader&quot;,&quot;cT&quot;:&quot;Module_coreui-universalheader&quot;,&quot;id&quot;:&quot;m1r1a1&quot;,&quot;sN&quot;:1,&quot;aN&quot;:&quot;r1a1&quot;}" data-module-id="Category|headerRegion|headerRegion|headerUniversalHeader|coreui-universalheader">
+        
+
+
+
+
+
+
+        <a id="uhfSkipToMain" class="m-skip-to-main" href="https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/cc280362(v%3dsql.105)#main" tabindex="0" style="z-index:3000002" data-m="{&quot;cN&quot;:&quot;Skip to content_nonnav&quot;,&quot;id&quot;:&quot;nn1m1r1a1&quot;,&quot;sN&quot;:1,&quot;aN&quot;:&quot;m1r1a1&quot;}">Skip to main content</a>
+
+
+<header role="banner" class="c-uhfh context-uhf" itemscope="itemscope" data-header-footprint="/MSDocs/MSDocsHeader-Archive" data-ckrate="1" data-magict="true" itemtype="http://schema.org/Organization">
+    <div class="theme-light js-global-head f-closed " data-m="{&quot;cN&quot;:&quot;Universal Header_cont&quot;,&quot;cT&quot;:&quot;Container&quot;,&quot;id&quot;:&quot;c2m1r1a1&quot;,&quot;sN&quot;:2,&quot;aN&quot;:&quot;m1r1a1&quot;}">
+        <div class="c-uhfh-gcontainer">
+            <button type="button" class="c-action-trigger c-glyph glyph-global-nav-button" aria-label="Header navigation menu" aria-expanded="false" data-m="{&quot;cN&quot;:&quot;Mobile menu button_nonnav&quot;,&quot;id&quot;:&quot;nn1c2m1r1a1&quot;,&quot;sN&quot;:1,&quot;aN&quot;:&quot;c2m1r1a1&quot;}"></button>
+            <button type="button" class="c-action-trigger c-glyph glyph-arrow-htmllegacy" aria-label="Close search" aria-expanded="false" data-m="{&quot;cN&quot;:&quot;Close Search_nonnav&quot;,&quot;id&quot;:&quot;nn2c2m1r1a1&quot;,&quot;sN&quot;:2,&quot;aN&quot;:&quot;c2m1r1a1&quot;}"></button>
+                    <a id="uhfLogo" class="c-logo" itemprop="url" href="https://www.microsoft.com/" aria-label="Microsoft" data-m="{&quot;cN&quot;:&quot;GlobalNav_Logo_cont&quot;,&quot;cT&quot;:&quot;Container&quot;,&quot;id&quot;:&quot;c3c2m1r1a1&quot;,&quot;sN&quot;:3,&quot;aN&quot;:&quot;c2m1r1a1&quot;}">
+                        <img itemprop="logo" itemscope="itemscope" class="c-image" src="./Query Processing Architecture _ Microsoft Docs_files/RE1Mu3b" role="none">
+                        <span role="none">Microsoft</span>
+                    </a>
+            <div class="f-mobile-title">
+                <button type="button" class="c-action-trigger c-glyph glyph-chevron-left" aria-label="See more menu options" data-m="{&quot;cN&quot;:&quot;Mobile back button_nonnav&quot;,&quot;id&quot;:&quot;nn4c2m1r1a1&quot;,&quot;sN&quot;:4,&quot;aN&quot;:&quot;c2m1r1a1&quot;}"></button>
+                <span data-global-title="Microsoft home" class="js-mobile-title">Docs</span>
+                <button type="button" class="c-action-trigger c-glyph glyph-chevron-right" aria-label="See more menu options" data-m="{&quot;cN&quot;:&quot;Mobile forward button_nonnav&quot;,&quot;id&quot;:&quot;nn5c2m1r1a1&quot;,&quot;sN&quot;:5,&quot;aN&quot;:&quot;c2m1r1a1&quot;}"></button>
+            </div>
+
+            
+            <button type="button" class="c-action-trigger c-glyph glyph-chevron-left js-primary-paddle" data-m="{&quot;cN&quot;:&quot;Previous_nonnav&quot;,&quot;id&quot;:&quot;nn6c2m1r1a1&quot;,&quot;sN&quot;:6,&quot;aN&quot;:&quot;c2m1r1a1&quot;}" aria-label="Show previous" tabindex="-1"></button>
+            
+            
+            
+            <button type="button" class="c-action-trigger c-glyph glyph-chevron-right js-secondary-paddle" data-m="{&quot;cN&quot;:&quot;Next_nonnav&quot;,&quot;id&quot;:&quot;nn7c2m1r1a1&quot;,&quot;sN&quot;:7,&quot;aN&quot;:&quot;c2m1r1a1&quot;}" aria-label="Show next" tabindex="-1"></button>
+
+                <div class="c-uhfh-actions" data-m="{&quot;cN&quot;:&quot;Header actions_cont&quot;,&quot;cT&quot;:&quot;Container&quot;,&quot;id&quot;:&quot;c8c2m1r1a1&quot;,&quot;sN&quot;:8,&quot;aN&quot;:&quot;c2m1r1a1&quot;}">
+                                <form class="c-search" autocomplete="off" id="searchForm" name="searchForm" role="search" action="https://docs.microsoft.com/en-us/search/index" method="GET" data-seautosuggest="{&quot;queryParams&quot;:{&quot;market&quot;:&quot;en-us&quot;,&quot;clientId&quot;:&quot;7F27B536-CF6B-4C65-8638-A0F8CBDFCA65&quot;,&quot;sources&quot;:&quot;Microsoft-Terms,Iris-Products,DCatAll-Products&quot;,&quot;filter&quot;:&quot;+ClientType:StoreWeb&quot;,&quot;counts&quot;:&quot;5,1,5&quot;},&quot;familyNames&quot;:{&quot;Apps&quot;:&quot;App&quot;,&quot;Books&quot;:&quot;Book&quot;,&quot;Bundles&quot;:&quot;Bundle&quot;,&quot;Devices&quot;:&quot;Device&quot;,&quot;Fees&quot;:&quot;Fee&quot;,&quot;Games&quot;:&quot;Game&quot;,&quot;MusicAlbums&quot;:&quot;Album&quot;,&quot;MusicTracks&quot;:&quot;Song&quot;,&quot;MusicVideos&quot;:&quot;Video&quot;,&quot;MusicArtists&quot;:&quot;Artist&quot;,&quot;OperatingSystem&quot;:&quot;Operating System&quot;,&quot;Software&quot;:&quot;Software&quot;,&quot;Movies&quot;:&quot;Movie&quot;,&quot;TV&quot;:&quot;TV&quot;,&quot;CSV&quot;:&quot;Gift Card&quot;,&quot;VideoActor&quot;:&quot;Actor&quot;}}" data-seautosuggestapi="https://www.microsoft.com/services/api/v3/suggest" data-m="{&quot;cN&quot;:&quot;GlobalNav_Search_cont&quot;,&quot;cT&quot;:&quot;Container&quot;,&quot;id&quot;:&quot;c1c8c2m1r1a1&quot;,&quot;sN&quot;:1,&quot;aN&quot;:&quot;c8c2m1r1a1&quot;}" aria-expanded="false">
+                <input id="cli_shellHeaderSearchInput" aria-label="Search" role="combobox" aria-autocomplete="list" aria-controls="universal-header-search-auto-suggest-transparent" aria-owns="universal-header-search-auto-suggest-ul" type="search" name="search" placeholder="Search previous versions" data-m="{&quot;cN&quot;:&quot;SearchBox_nav&quot;,&quot;id&quot;:&quot;n1c1c8c2m1r1a1&quot;,&quot;sN&quot;:1,&quot;aN&quot;:&quot;c1c8c2m1r1a1&quot;}" style="display: none;"><div class="x-screen-reader x-hidden" aria-live="assertive"></div>
+                
+                <button id="search" aria-label="Search" class="c-glyph" data-m="{&quot;cN&quot;:&quot;Search_nav&quot;,&quot;id&quot;:&quot;n2c1c8c2m1r1a1&quot;,&quot;sN&quot;:2,&quot;aN&quot;:&quot;c1c8c2m1r1a1&quot;}" data-bi-dnt="true" data-bi-mto="true" aria-expanded="false"></button>
+                <div class="m-auto-suggest" id="universal-header-search-auto-suggest-transparent" role="group">
+                    <ul class="c-menu" id="universal-header-search-auto-suggest-ul" aria-hidden="true" data-bi-dnt="true" data-bi-mto="true" data-js-auto-suggest-position="default" role="listbox" data-tel="jsll" data-m="{&quot;cN&quot;:&quot;search suggestions_cont&quot;,&quot;cT&quot;:&quot;Container&quot;,&quot;id&quot;:&quot;c3c1c8c2m1r1a1&quot;,&quot;sN&quot;:3,&quot;aN&quot;:&quot;c1c8c2m1r1a1&quot;}"></ul>
+                </div>
+                
+            <input name="dataSource" hidden=""></form>
+
+                    
+                    
+                    
+                    
+                <div class="auth-control loaded">
+	<a class="auth-main docs-sign-in" href="https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/cc280362(v%3dsql.105)#" aria-label="Sign in" title="Sign in">
+		<div class="auth-title sign-in">Sign in</div>
+	</a>
+</div></div>
+        </div>
+        
+        
+    </div>
+                <div class="theme-dark brand-neutral js-cat-head" itemprop="brand" itemscope="itemscope" itemtype="http://schema.org/Brand" data-m="{&quot;cN&quot;:&quot;UHF category nav_cont&quot;,&quot;cT&quot;:&quot;Container&quot;,&quot;id&quot;:&quot;c3m1r1a1&quot;,&quot;sN&quot;:3,&quot;aN&quot;:&quot;m1r1a1&quot;}">
+
+<div>
+        <a id="uhfCatLogo" class="c-logo" href="https://docs.microsoft.com/" aria-label="Docs" itemprop="url" data-m="{&quot;cN&quot;:&quot;Docs_nav&quot;,&quot;id&quot;:&quot;n1c3m1r1a1&quot;,&quot;sN&quot;:1,&quot;aN&quot;:&quot;c3m1r1a1&quot;}">
+                <span>Docs</span>
+        </a>
+
+
+    <button class="c-action-trigger c-glyph glyph-chevron-left js-primary-paddle" aria-label="Scroll left" title="Scroll left" data-m="{&quot;cN&quot;:&quot;Previous_nonnav&quot;,&quot;id&quot;:&quot;nn2c3m1r1a1&quot;,&quot;sN&quot;:2,&quot;aN&quot;:&quot;c3m1r1a1&quot;}" tabindex="-1" style="display: none;"></button>
+    
+    <button class="c-action-trigger c-glyph glyph-chevron-right js-secondary-paddle" aria-label="Scroll right" title="Scroll right" data-m="{&quot;cN&quot;:&quot;Next_nonnav&quot;,&quot;id&quot;:&quot;nn3c3m1r1a1&quot;,&quot;sN&quot;:3,&quot;aN&quot;:&quot;c3m1r1a1&quot;}" tabindex="-1" style="display: none;"></button>
+            <nav id="uhf-c-nav" role="navigation" aria-label="docs" class="js-paddle-items">
+
+                        <a id="shellmenu_0" class="c-uhf-nav-link" href="https://docs.microsoft.com/en-us/previous-versions" data-m="{&quot;cN&quot;:&quot;CatNav_C1_1-ArchivedDocumentationCategoryMenu_nav&quot;,&quot;id&quot;:&quot;n4c3m1r1a1&quot;,&quot;sN&quot;:4,&quot;aN&quot;:&quot;c3m1r1a1&quot;}" style="transition: margin 0.667s cubic-bezier(0.16, 1, 0.29, 0.99);">Previous Versions Documentation</a>
+                    </nav>
+
+</div>
+
+
+                
+            </div>
+
+    
+</header>
+
+
+    </div>
+    </div>
+
+    </section>
+</div>
+	<div id="disclaimer-holder" class="disclaimer-holder">
+		<div class="alert disclaimer previous-version-disc" lang="en-us" dir="ltr">
+			<p>This content has been retired and may not be updated in the future.  The product, service, or technology mentioned in this content is no longer supported.</p>
+		<a class="button-border" href="https://docs.microsoft.com/sql">Recommended Version</a><button type="button" class="button-dismiss no-style"><span class="visually-hidden">Dismiss alert</span></button></div>
+	</div>
+</div>
+
+	<div class="container-legacy mainContainer" data-bi-name="body">
+		<div class="content-header" data-bi-name="content-header">
+			<ul class="breadcrumbs" data-bi-name="breadcrumb" itemscope="" itemtype="http://schema.org/BreadcrumbList" role="navigation" aria-label="Breadcrumb"><li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><a itemprop="item" href="https://docs.microsoft.com/en-us/">Docs</a></li><li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><a itemprop="item" href="https://docs.microsoft.com/en-us/previous-versions/">Previous Versions</a></li><li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><a itemprop="item" href="https://docs.microsoft.com/en-us/previous-versions/sql">SQL</a></li><li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><span itemprop="name">SQL Server 2008 R2</span></li><li class="mobile-breadcrumb"><a href="https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/cc280361(v%3dsql.105)">Planning and Architecture (Database Engine)</a></li><li>Query Processing Architecture</li></ul>
+			<div class="content-header-controls exit-focus">
+				<button type="button" class="ap-collapse-behavior ap-expanded button-border" data-bi-name="ap-collapse">
+					<span class="docon docon-exit-mode"></span>
+Exit focus mode				</button>
+				
+			</div>
+			<div class="content-header-controls">
+				<button type="button" class="contents-button button-border" data-bi-name="contents-expand">
+					<span class="docon docon-menu"></span>
+Contents				</button>
+			</div>
+			<div class="action-bar">
+				<ul class="action-list">
+					<li>
+						<div class="sharing dropdown has-caret" auto-align="">
+							<a href="https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/cc280362(v%3dsql.105)#" class="dropdown-trigger" aria-haspopup="true" aria-controls="sharing-menu" aria-expanded="false" title="Share This Document" data-bi-name="share">
+								<span class="docon docon-sharing" aria-hidden="true"></span><span class="action-item-text">Share</span>
+							</a>
+							<div class="dropdown-menu" id="sharing-menu" role="menu">
+								<ul data-bi-name="share-links">
+									<li><a class="share-twitter" data-bi-name="twitter" href="https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fprevious-versions%2Fsql%2Fsql-server-2008-r2%2Fcc280362(v%253dsql.105)%3FWT.mc_id%3Dtwitter&amp;text=Query%20Processing%20Architecture%20%7C%20Microsoft%20Docs&amp;tw_p=tweetbutton&amp;url=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fprevious-versions%2Fsql%2Fsql-server-2008-r2%2Fcc280362(v%253dsql.105)%3FWT.mc_id%3Dtwitter"><span class="docon docon-brand-twitter" aria-hidden="true"></span>Twitter</a></li>
+									<li><a class="share-linkedin" data-bi-name="linkedin" href="https://www.linkedin.com/cws/share?url=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fprevious-versions%2Fsql%2Fsql-server-2008-r2%2Fcc280362(v%253dsql.105)%3FWT.mc_id%3Dlinkedin"><span class="docon docon-brand-linkedin" aria-hidden="true"></span>LinkedIn</a></li>
+									<li><a class="share-facebook" data-bi-name="facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fprevious-versions%2Fsql%2Fsql-server-2008-r2%2Fcc280362(v%253dsql.105)%3FWT.mc_id%3Dfacebook"><span class="docon docon-brand-facebook" aria-hidden="true"></span>Facebook</a></li>
+									<li><a class="share-email" data-bi-name="email" href="mailto:?subject=%5BShared%20Article%5D%20Query%20Processing%20Architecture%20%7C%20Microsoft%20Docs&amp;body=Query%20Processing%20Architecture%20%7C%20Microsoft%20Docs%0A%0Ahttps%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fprevious-versions%2Fsql%2Fsql-server-2008-r2%2Fcc280362(v%253dsql.105)%3FWT.mc_id%3Demail"><span class="docon docon-mail-message-fill" aria-hidden="true"></span>Email</a></li>
+								</ul>
+							</div>
+						</div>
+					</li>
+					<li>
+						<button class="toggle-theme" aria-label="toggle-theme" data-bi-name="select-theme"><span class="docon docon-sun"></span><span class="action-item-text">Light</span></button>
+					</li>
+				</ul>
+				<button type="button" class="contents-button" aria-label="Contents" data-bi-name="contents-expand-">
+					<span class="docon docon-editor-list-bullet"></span><span>Contents</span>
+				</button>
+			</div>
+		</div>
+
+		<div class="pageActions">
+			<div id="page-actions" data-bi-name="pageactions" role="complementary" aria-label="Page Actions">
+				<div id="page-actions-content" style="top: 234px; bottom: 24px;">
+						<nav id="side-doc-outline" class="doc-outline" data-bi-name="intopic toc" role="navigation" aria-label="On page navigation">
+							<h3>In this article</h3>
+						<ol><li><a href="https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/cc280362(v%3dsql.105)#in-this-section">In This Section</a></li></ol></nav>
+				</div>
+			</div>
+		</div>
+
+		<div class="primary-holder">
+
+			<main id="main" role="main" class="content" data-bi-name="content" lang="en-us" dir="ltr">
+
+
+				
+
+					<ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
+							<li class="displayDate">
+								<span aria-hidden="true" class="docon docon-calendar"></span>
+								<time role="presentation" datetime="2012-10-03T18:30:00.000Z">10/04/2012</time>
+							</li>
+							<li class="readingTime">
+								<span aria-hidden="true" class="docon docon-clock"></span>
+								2 minutes to read
+							</li>
+
+					</ul>
+						<nav id="center-doc-outline" class="doc-outline" data-bi-name="intopic toc" role="navigation" aria-label="On page navigation">
+							<h3>In this article</h3>
+						<ol><li><a href="https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/cc280362(v%3dsql.105)#in-this-section">In This Section</a></li></ol></nav>
+
+				<!-- <content> -->
+					<div class="topic" data-xmlns="http://www.w3.org/1999/xhtml">
+<div>
+<h1 id="query-processing-architecture">Query Processing Architecture</h1>
+</div>
+<div id="mainSection">
+<div id="mainBody">
+<div class="introduction">
+<p class="">The Database Engine processes queries on a variety of data storage architectures such as local tables, partitioned tables, and tables distributed across multiple servers. The following topics cover&nbsp;how SQL Server processes queries and optimizes query reuse through execution plan caching.&nbsp;</p>
+</div>
+<div>
+<h2 id="in-this-section">In This Section</h2>
+<p><span id="inThisSectionToggle"></span></p>
+<ul>
+<li><p><a href="https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/ms190623%28v%3dsql.105%29" data-linktype="relative-path">SQL Statement Processing</a><br>
+Contains topics about processing SELECT statements that reference local tables.</p>
+</li>
+<li><p><a href="https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/ms190201%28v%3dsql.105%29" data-linktype="relative-path">Stored Procedure and Trigger Execution</a><br>
+Describes executing stored procedures and triggers.</p>
+</li>
+<li><p><a href="https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/ms181055%28v%3dsql.105%29" data-linktype="relative-path">Execution Plan Caching and Reuse</a><br>
+Contains topics about caching and reusing query execution plans.</p>
+</li>
+<li><p><a href="https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/ms178065%28v%3dsql.105%29" data-linktype="relative-path">Parallel Query Processing</a><br>
+Contains topics about creating and executing parallel query execution plans.</p>
+</li>
+<li><p><a href="https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/ms191277%28v%3dsql.105%29" data-linktype="relative-path">Distributed Query Architecture</a><br>
+Describes executing queries on data that is distributed across multiple servers.</p>
+</li>
+<li><p><a href="https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/ms345599%28v%3dsql.105%29" data-linktype="relative-path">Query Processing Enhancements on Partitioned Tables and Indexes</a><br>
+Describes enhancements in SQL Server 2008 for executing queries on partitioned tables and indexes.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+				<!-- </content> -->
+
+
+			</main>
+
+
+		</div>
+
+		<div class="sidebar" id="sidebar" data-bi-name="left toc" role="navigation" aria-label="Main Navigation">
+			<button class="sidebar-header" type="button" aria-label="Close" data-bi-name="contents-collapse">
+				<span>Contents</span>
+				<span class="docon docon-navigate-close" aria-hidden="true"></span>
+			</button>
+			<div id="sidebarContent" style="top: 234px; bottom: 24px;">
+				<div class="filterHolder">
+				<form class="tocFilter" aria-label="Filter Table of Contents"><input placeholder="Filter by title" aria-label="Filter" data-bi-name="toc-filter" id="toc-filter" type="search" aria-controls="filterResults"><a href="https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/cc280362(v%3dsql.105)#" title="Clear Filter" class="clearInput"><span class="visually-hidden">Clear Filter</span></a></form><div class="emptyFilterMessage">No results</div></div>
+				<nav class="toc" role="application" aria-label="Table of Contents" id="filterResults"><ul role="tree" onclick="msDocs.functions.stopSomePropagation(event, &quot;top&quot;)" class="noSibs"><li role="group" aria-expanded="true" aria-label="planning and architecture (database engine) " onclick="event.stopPropagation();msDocs.functions.toggleAriaExpanded(this)"><a onclick="msDocs.functions.stopSomePropagation(event, &quot;left&quot;)" tabindex="0" href="https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/cc280361(v%3dsql.105)" data-text="planning and architecture (database engine) ">Planning and Architecture (Database Engine)</a><ul role="tree" onclick="msDocs.functions.stopSomePropagation(event, &quot;top&quot;)"><li role="treeitem"><a onclick="msDocs.functions.stopSomePropagation(event, &quot;left&quot;)" tabindex="0" href="https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/cc280360(v%3dsql.105)" data-text="pages and extents architecture ">Pages and Extents Architecture</a></li><li role="treeitem"><a tabindex="0" href="https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/ms179316(v%3dsql.105)" data-text="files and filegroups architecture ">Files and Filegroups Architecture</a></li><li role="treeitem"><a tabindex="0" href="https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/ms345419(v%3dsql.105)" data-text="transaction log architecture ">Transaction Log Architecture</a></li><li role="treeitem"><a tabindex="0" href="https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/ms180978(v%3dsql.105)" data-text="tables and index data structures architecture ">Tables and Index Data Structures Architecture</a></li><li role="group" aria-expanded="true" aria-label="query processing architecture " tabindex="0" onclick="event.stopPropagation();msDocs.functions.toggleAriaExpanded(this)" class="noSubs selectedHolder"><a tabindex="0" class="selected" aria-current="page" data-showme="true" href="https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/cc280362(v%3dsql.105)" data-text="query processing architecture ">Query Processing Architecture</a><ul role="tree" onclick="msDocs.functions.stopSomePropagation(event, &quot;top&quot;)"><li role="treeitem"><a onclick="msDocs.functions.stopSomePropagation(event, &quot;left&quot;)" tabindex="0" href="https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/ms190623(v%3dsql.105)" data-text="sql statement processing ">SQL Statement Processing</a></li><li role="treeitem"><a tabindex="0" href="https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/ms190201(v%3dsql.105)" data-text="stored procedure and trigger execution ">Stored Procedure and Trigger Execution</a></li><li role="treeitem"><a tabindex="0" href="https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/ms181055(v%3dsql.105)" data-text="execution plan caching and reuse ">Execution Plan Caching and Reuse</a></li><li role="treeitem"><a tabindex="0" href="https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/ms178065(v%3dsql.105)" data-text="parallel query processing ">Parallel Query Processing</a></li><li role="treeitem"><a tabindex="0" href="https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/ms191277(v%3dsql.105)" data-text="distributed query architecture ">Distributed Query Architecture</a></li><li role="treeitem"><a tabindex="0" href="https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/ms345599(v%3dsql.105)" data-text="query processing enhancements on partitioned tables and indexes ">Query Processing Enhancements on Partitioned Tables and Indexes</a></li></ul></li><li role="treeitem"><a tabindex="0" href="https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/cc280359(v%3dsql.105)" data-text="memory management architecture ">Memory Management Architecture</a></li><li role="treeitem"><a tabindex="0" href="https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/ms176043(v%3dsql.105)" data-text="thread and task architecture ">Thread and Task Architecture</a></li><li role="treeitem"><a tabindex="0" href="https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/bb510403(v%3dsql.105)" data-text="solution design considerations ">Solution Design Considerations</a></li></ul></li></ul></nav>
+				<div class="pdfDownloadHolder"></div>
+			</div>
+			<div class="tocSpace"></div>
+		</div>
+
+	</div>
+
+	<div id="openFeedbackContainer" class="openfeedback-container"></div>
+
+	<div class="footerContainer">
+<footer id="footer" data-bi-name="footer" class="footer-layout" role="contentinfo">
+
+    <a data-mscc-ic="false" id="locale-selector-link" href="https://docs.microsoft.com/en-us/locale?target=%2Fen-us%2Fprevious-versions%2Fsql%2Fsql-server-2008-r2%2Fcc280362(v%253dsql.105)" data-bi-name="select-locale">English (United States)</a>
+
+    <ul class="links" data-bi-name="footerlinks">
+		<li><a data-mscc-ic="false" href="https://docs.microsoft.com/previous-versions/" data-bi-name="archivelink">Previous Version Docs</a></li>
+		<li><a data-mscc-ic="false" href="https://docs.microsoft.com/teamblog" data-bi-name="bloglink">Blog</a></li>
+		<li><a data-mscc-ic="false" href="https://docs.microsoft.com/contribute" data-bi-name="contributorGuide">Contribute</a></li>
+			<li><a data-mscc-ic="false" href="https://privacy.microsoft.com/en-us/" data-bi-name="privacy">Privacy &amp; Cookies</a></li>
+		<li><a data-mscc-ic="false" href="https://docs.microsoft.com/en-us/legal/termsofuse" data-bi-name="termsofuse">Terms of Use</a></li>
+		<li><a data-mscc-ic="false" href="https://aka.ms/sitefeedback" data-bi-name="feedback">Site Feedback</a></li>
+		<li><a data-mscc-ic="false" href="https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/EN-US.aspx" data-bi-name="trademarks">Trademarks</a></li>
+    </ul>
+</footer>	</div>
+
+	<div class="action-panel"></div>
+
+</body></html>
